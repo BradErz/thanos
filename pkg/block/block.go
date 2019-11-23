@@ -4,7 +4,7 @@ package block
 
 import (
 	"context"
-	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path"
@@ -15,11 +15,10 @@ import (
 
 	"github.com/thanos-io/thanos/pkg/block/metadata"
 
-	"fmt"
-
 	"github.com/go-kit/kit/log"
 	"github.com/oklog/ulid"
 	"github.com/pkg/errors"
+
 	"github.com/thanos-io/thanos/pkg/objstore"
 	"github.com/thanos-io/thanos/pkg/runutil"
 )

@@ -15,7 +15,6 @@ package v1
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -37,6 +36,7 @@ import (
 	"github.com/prometheus/prometheus/pkg/timestamp"
 	"github.com/prometheus/prometheus/promql"
 	tsdb_labels "github.com/prometheus/prometheus/tsdb/labels"
+
 	"github.com/thanos-io/thanos/pkg/compact"
 	"github.com/thanos-io/thanos/pkg/component"
 	extpromhttp "github.com/thanos-io/thanos/pkg/extprom/http"

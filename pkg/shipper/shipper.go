@@ -4,7 +4,6 @@ package shipper
 
 import (
 	"context"
-	"encoding/json"
 	"io/ioutil"
 	"math"
 	"os"
@@ -14,6 +13,7 @@ import (
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
+	jsoniter "github.com/json-iterator/go"
 	"github.com/oklog/ulid"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
@@ -24,6 +24,10 @@ import (
 	"github.com/thanos-io/thanos/pkg/block/metadata"
 	"github.com/thanos-io/thanos/pkg/objstore"
 	"github.com/thanos-io/thanos/pkg/runutil"
+)
+
+var (
+	json = jsoniter.ConfigDefault
 )
 
 type metrics struct {

@@ -18,7 +18,6 @@ package v1
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"math"
 	"net/http"
@@ -27,6 +26,7 @@ import (
 
 	"github.com/NYTimes/gziphandler"
 	"github.com/go-kit/kit/log"
+	jsoniter "github.com/json-iterator/go"
 	"github.com/opentracing/opentracing-go"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
@@ -40,6 +40,10 @@ import (
 	"github.com/thanos-io/thanos/pkg/query"
 	"github.com/thanos-io/thanos/pkg/runutil"
 	"github.com/thanos-io/thanos/pkg/tracing"
+)
+
+var (
+	json = jsoniter.ConfigDefault
 )
 
 type status string

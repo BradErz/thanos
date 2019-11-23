@@ -6,16 +6,21 @@ package metadata
 // this package.
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 
 	"github.com/go-kit/kit/log"
+	jsoniter "github.com/json-iterator/go"
 	"github.com/pkg/errors"
 	"github.com/prometheus/prometheus/tsdb"
 	"github.com/prometheus/prometheus/tsdb/fileutil"
+
 	"github.com/thanos-io/thanos/pkg/runutil"
+)
+
+var (
+	json = jsoniter.ConfigDefault
 )
 
 type SourceType string

@@ -7,7 +7,6 @@ import (
 	"bytes"
 	"compress/gzip"
 	"context"
-	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -23,6 +22,7 @@ import (
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
+	jsoniter "github.com/json-iterator/go"
 	"github.com/pkg/errors"
 	"github.com/prometheus/common/model"
 	promlabels "github.com/prometheus/prometheus/pkg/labels"
@@ -33,6 +33,10 @@ import (
 	"github.com/thanos-io/thanos/pkg/store/storepb"
 	"github.com/thanos-io/thanos/pkg/tracing"
 	yaml "gopkg.in/yaml.v2"
+)
+
+var (
+	json = jsoniter.ConfigDefault
 )
 
 var ErrFlagEndpointNotFound = errors.New("no flag endpoint found")
@@ -323,8 +327,8 @@ func QueryInstant(ctx context.Context, logger log.Logger, base *url.URL, query s
 	// structure of the Result yet.
 	var m struct {
 		Data struct {
-			ResultType string          `json:"resultType"`
-			Result     json.RawMessage `json:"result"`
+			ResultType string              `json:"resultType"`
+			Result     jsoniter.RawMessage `json:"result"`
 		} `json:"data"`
 
 		Error     string `json:"error,omitempty"`
@@ -400,11 +404,11 @@ func PromqlQueryInstant(ctx context.Context, logger log.Logger, base *url.URL, q
 
 // Scalar response consists of array with mixed types so it needs to be
 // unmarshaled separately.
-func convertScalarJSONToVector(scalarJSONResult json.RawMessage) (model.Vector, error) {
+func convertScalarJSONToVector(scalarJSONResult jsoniter.RawMessage) (model.Vector, error) {
 	var (
 		// Do not specify exact length of the expected slice since JSON unmarshaling
 		// would make the length fit the size and we won't be able to check the length afterwards.
-		resultPointSlice []json.RawMessage
+		resultPointSlice []jsoniter.RawMessage
 		resultTime       model.Time
 		resultValue      model.SampleValue
 	)

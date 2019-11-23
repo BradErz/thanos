@@ -3,7 +3,6 @@ package store
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -19,6 +18,7 @@ import (
 	"github.com/go-kit/kit/log/level"
 	"github.com/gogo/protobuf/proto"
 	"github.com/golang/snappy"
+	jsoniter "github.com/json-iterator/go"
 	opentracing "github.com/opentracing/opentracing-go"
 	"github.com/pkg/errors"
 	"github.com/prometheus/prometheus/prompb"
@@ -31,6 +31,10 @@ import (
 	"github.com/thanos-io/thanos/pkg/tracing"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+)
+
+var (
+	json = jsoniter.ConfigDefault
 )
 
 var statusToCode = map[int]codes.Code{

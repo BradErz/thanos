@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"os"
 	"sort"
@@ -12,6 +11,7 @@ import (
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
+	jsoniter "github.com/json-iterator/go"
 	"github.com/oklog/run"
 	"github.com/oklog/ulid"
 	"github.com/olekukonko/tablewriter"
@@ -36,6 +36,10 @@ import (
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"
 	kingpin "gopkg.in/alecthomas/kingpin.v2"
+)
+
+var (
+	json = jsoniter.ConfigDefault
 )
 
 var (

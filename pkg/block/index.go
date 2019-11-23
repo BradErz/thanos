@@ -1,7 +1,6 @@
 package block
 
 import (
-	"encoding/json"
 	"fmt"
 	"hash/crc32"
 	"io/ioutil"
@@ -11,6 +10,8 @@ import (
 	"sort"
 	"strings"
 	"time"
+
+	jsoniter "github.com/json-iterator/go"
 
 	"github.com/thanos-io/thanos/pkg/block/metadata"
 
@@ -24,12 +25,17 @@ import (
 	"github.com/prometheus/prometheus/tsdb/chunks"
 	"github.com/prometheus/prometheus/tsdb/index"
 	"github.com/prometheus/prometheus/tsdb/labels"
+
 	"github.com/thanos-io/thanos/pkg/runutil"
 )
 
 const (
 	// IndexCacheVersion is a enumeration of index cache versions supported by Thanos.
 	IndexCacheVersion1 = iota + 1
+)
+
+var (
+	json = jsoniter.ConfigDefault
 )
 
 type postingsRange struct {

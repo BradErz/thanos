@@ -3,12 +3,12 @@ package compact_test
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"strings"
 	"testing"
 	"time"
 
 	"github.com/go-kit/kit/log"
+	jsoniter "github.com/json-iterator/go"
 	"github.com/oklog/ulid"
 	"github.com/prometheus/prometheus/tsdb"
 	"github.com/thanos-io/thanos/pkg/block/metadata"
@@ -16,6 +16,10 @@ import (
 	"github.com/thanos-io/thanos/pkg/objstore"
 	"github.com/thanos-io/thanos/pkg/objstore/inmem"
 	"github.com/thanos-io/thanos/pkg/testutil"
+)
+
+var (
+	json = jsoniter.ConfigDefault
 )
 
 func TestApplyRetentionPolicyByResolution(t *testing.T) {

@@ -3,7 +3,6 @@ package shipper
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"io/ioutil"
 	"math/rand"
 	"os"
@@ -19,6 +18,7 @@ import (
 	"github.com/prometheus/prometheus/pkg/timestamp"
 	"github.com/prometheus/prometheus/tsdb"
 	"github.com/prometheus/prometheus/tsdb/labels"
+
 	"github.com/thanos-io/thanos/pkg/block"
 	"github.com/thanos-io/thanos/pkg/block/metadata"
 	"github.com/thanos-io/thanos/pkg/objstore"

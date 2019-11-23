@@ -2,7 +2,6 @@ package v1
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -13,6 +12,7 @@ import (
 	"time"
 
 	"github.com/go-kit/kit/log"
+	jsoniter "github.com/json-iterator/go"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/model"
 	"github.com/prometheus/common/route"
@@ -23,6 +23,10 @@ import (
 	"github.com/prometheus/prometheus/storage/tsdb"
 	qapi "github.com/thanos-io/thanos/pkg/query/api"
 	thanosrule "github.com/thanos-io/thanos/pkg/rule"
+)
+
+var (
+	json = jsoniter.ConfigDefault
 )
 
 // NewStorage returns a new storage for testing purposes

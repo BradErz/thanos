@@ -3,7 +3,6 @@ package e2e_test
 import (
 	"bufio"
 	"context"
-	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -16,6 +15,7 @@ import (
 	"testing"
 	"time"
 
+	jsoniter "github.com/json-iterator/go"
 	"github.com/oklog/run"
 	"github.com/pkg/errors"
 	"github.com/thanos-io/thanos/pkg/objstore/s3"
@@ -24,6 +24,10 @@ import (
 	"github.com/thanos-io/thanos/pkg/store/storepb"
 	"github.com/thanos-io/thanos/pkg/testutil"
 	"google.golang.org/grpc"
+)
+
+var (
+	json = jsoniter.ConfigDefault
 )
 
 const portMin = 10000
