@@ -3,7 +3,6 @@ package compact
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"math/rand"
@@ -15,6 +14,7 @@ import (
 	"time"
 
 	"github.com/go-kit/kit/log"
+	jsoniter "github.com/json-iterator/go"
 	"github.com/oklog/ulid"
 	"github.com/pkg/errors"
 	"github.com/prometheus/client_golang/prometheus"
@@ -29,6 +29,10 @@ import (
 	"github.com/thanos-io/thanos/pkg/objstore/objtesting"
 	"github.com/thanos-io/thanos/pkg/testutil"
 	"gopkg.in/yaml.v2"
+)
+
+var (
+	json = jsoniter.ConfigFastest
 )
 
 func TestSyncer_SyncMetas_e2e(t *testing.T) {

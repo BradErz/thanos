@@ -4,7 +4,6 @@ package block
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -14,6 +13,7 @@ import (
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
+	jsoniter "github.com/json-iterator/go"
 	"github.com/oklog/ulid"
 	"github.com/pkg/errors"
 
@@ -34,6 +34,10 @@ const (
 
 	// DebugMetas is a directory for debug meta files that happen in the past. Useful for debugging.
 	DebugMetas = "debug/metas"
+)
+
+var (
+	json = jsoniter.ConfigFastest
 )
 
 // Download downloads directory that is mean to be block directory.

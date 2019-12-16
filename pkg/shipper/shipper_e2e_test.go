@@ -3,7 +3,6 @@ package shipper
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"io/ioutil"
 	"math/rand"
 	"os"

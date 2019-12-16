@@ -6,10 +6,11 @@ package metadata
 // this package.
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+
+	jsoniter "github.com/json-iterator/go"
 
 	"github.com/go-kit/kit/log"
 	"github.com/pkg/errors"
@@ -39,6 +40,10 @@ const (
 const (
 	// MetaVersion is a enumeration of meta versions supported by Thanos.
 	MetaVersion1 = iota + 1
+)
+
+var (
+	json = jsoniter.ConfigFastest
 )
 
 // Meta describes the a block's meta. It wraps the known TSDB meta structure and

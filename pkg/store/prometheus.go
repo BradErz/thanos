@@ -3,7 +3,6 @@ package store
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -14,6 +13,8 @@ import (
 	"sort"
 	"strings"
 	"sync"
+
+	jsoniter "github.com/json-iterator/go"
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
@@ -42,7 +43,11 @@ var statusToCode = map[int]codes.Code{
 	http.StatusInternalServerError: codes.Internal,
 }
 
-var userAgent = fmt.Sprintf("Thanos/%s", version.Version)
+var (
+	userAgent = fmt.Sprintf("Thanos/%s", version.Version)
+
+	json = jsoniter.ConfigFastest
+)
 
 // PrometheusStore implements the store node API on top of the Prometheus remote read API.
 type PrometheusStore struct {
