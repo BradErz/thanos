@@ -11,6 +11,8 @@ import (
 	"testing"
 	"time"
 
+	jsoniter "github.com/json-iterator/go"
+
 	"github.com/thanos-io/thanos/pkg/objstore/inmem"
 
 	"github.com/go-kit/kit/log"
@@ -23,6 +25,10 @@ import (
 	"github.com/thanos-io/thanos/pkg/objstore"
 	"github.com/thanos-io/thanos/pkg/objstore/objtesting"
 	"github.com/thanos-io/thanos/pkg/testutil"
+)
+
+var (
+	json = jsoniter.ConfigDefault
 )
 
 func TestShipper_SyncBlocks_e2e(t *testing.T) {
