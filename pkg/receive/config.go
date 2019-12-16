@@ -4,11 +4,12 @@ import (
 	"context"
 	"crypto/md5"
 	"encoding/binary"
-	"encoding/json"
 	"io/ioutil"
 	"os"
 	"reflect"
 	"time"
+
+	jsoniter "github.com/json-iterator/go"
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
@@ -16,6 +17,10 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/common/model"
 	"gopkg.in/fsnotify.v1"
+)
+
+var (
+	json = jsoniter.ConfigDefault
 )
 
 // HashringConfig represents the configuration for a hashring

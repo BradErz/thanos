@@ -4,7 +4,6 @@ package alert
 import (
 	"bytes"
 	"context"
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -12,6 +11,8 @@ import (
 	"sync"
 	"sync/atomic"
 	"time"
+
+	jsoniter "github.com/json-iterator/go"
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
@@ -28,7 +29,10 @@ const (
 	contentTypeJSON   = "application/json"
 )
 
-var userAgent = fmt.Sprintf("Thanos/%s", version.Version)
+var (
+	userAgent = fmt.Sprintf("Thanos/%s", version.Version)
+	json      = jsoniter.ConfigDefault
+)
 
 // Alert is a generic representation of an alert in the Prometheus eco-system.
 type Alert struct {

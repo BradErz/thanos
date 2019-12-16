@@ -7,7 +7,6 @@ import (
 	"bytes"
 	"compress/gzip"
 	"context"
-	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -20,6 +19,8 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	jsoniter "github.com/json-iterator/go"
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
@@ -35,7 +36,11 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
-var ErrFlagEndpointNotFound = errors.New("no flag endpoint found")
+var (
+	ErrFlagEndpointNotFound = errors.New("no flag endpoint found")
+
+	json = jsoniter.ConfigDefault
+)
 
 // IsWALDirAccesible returns no error if WAL dir can be found. This helps to tell
 // if we have access to Prometheus TSDB directory.
@@ -323,8 +328,8 @@ func QueryInstant(ctx context.Context, logger log.Logger, base *url.URL, query s
 	// structure of the Result yet.
 	var m struct {
 		Data struct {
-			ResultType string          `json:"resultType"`
-			Result     json.RawMessage `json:"result"`
+			ResultType string              `json:"resultType"`
+			Result     jsoniter.RawMessage `json:"result"`
 		} `json:"data"`
 
 		Error     string `json:"error,omitempty"`
@@ -400,11 +405,11 @@ func PromqlQueryInstant(ctx context.Context, logger log.Logger, base *url.URL, q
 
 // Scalar response consists of array with mixed types so it needs to be
 // unmarshaled separately.
-func convertScalarJSONToVector(scalarJSONResult json.RawMessage) (model.Vector, error) {
+func convertScalarJSONToVector(scalarJSONResult jsoniter.RawMessage) (model.Vector, error) {
 	var (
 		// Do not specify exact length of the expected slice since JSON unmarshaling
 		// would make the length fit the size and we won't be able to check the length afterwards.
-		resultPointSlice []json.RawMessage
+		resultPointSlice []jsoniter.RawMessage
 		resultTime       model.Time
 		resultValue      model.SampleValue
 	)

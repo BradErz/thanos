@@ -4,13 +4,14 @@ package shipper
 
 import (
 	"context"
-	"encoding/json"
 	"io/ioutil"
 	"math"
 	"os"
 	"path"
 	"path/filepath"
 	"sort"
+
+	jsoniter "github.com/json-iterator/go"
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
@@ -24,6 +25,10 @@ import (
 	"github.com/thanos-io/thanos/pkg/block/metadata"
 	"github.com/thanos-io/thanos/pkg/objstore"
 	"github.com/thanos-io/thanos/pkg/runutil"
+)
+
+var (
+	json = jsoniter.ConfigDefault
 )
 
 type metrics struct {
